@@ -74,8 +74,9 @@ func newCoreBPE(encoder map[string]uint, specialTokensEncoder map[string]uint, p
 	}, nil
 }
 
-// Encode encodes the provided text. It returns the encoded tokens and the
-// length of the last piece token.
+// Encode performs tokenization and encoding of the input text using the Byte Pair Encoding (BPE) algorithm.
+// It takes the input text and a set of allowed special tokens as parameters.
+// It returns the encoded token IDs and corresponding tokens as slices.
 func (bpe *coreBPE) Encode(text string, allowedSpecial map[string]any) ([]uint, []string) {
 	specialRegex := bpe.tlSpecialRegex
 	regex := bpe.tlRegex
@@ -141,8 +142,9 @@ func (bpe *coreBPE) Encode(text string, allowedSpecial map[string]any) ([]uint, 
 	return retIDs, retTokens
 }
 
-// EncodeOrdinary encodes the provided text without considering special tokens.
-// It returns the encoded tokens.
+// EncodeOrdinary performs tokenization and encoding of the input text using the Byte Pair Encoding (BPE) algorithm,
+// treating all tokens as ordinary tokens (not special tokens).
+// It takes the input text as a parameter and returns the encoded token IDs and corresponding tokens as slices.
 func (bpe *coreBPE) EncodeOrdinary(text string) ([]uint, []string) {
 	retIDs := []uint{}
 	retTokens := []string{}
@@ -166,7 +168,8 @@ func (bpe *coreBPE) EncodeOrdinary(text string) ([]uint, []string) {
 	return retIDs, retTokens
 }
 
-// decode decodes the provided tokens. It returns the decoded byte slice.
+// Decode performs decoding of the input token IDs and reconstructs the original text.
+// It takes the token IDs as a parameter and returns the decoded text as a byte slice.
 func (bpe *coreBPE) Decode(tokens []uint) []byte {
 	ret := make([]byte, 0, len(tokens)*2)
 
