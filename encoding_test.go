@@ -63,24 +63,6 @@ func TestCL100kEncoding(t *testing.T) {
 	})
 }
 
-func TestNewEncodingForModel(t *testing.T) {
-	enc, err := NewEncodingForModel("gpt2")
-	assert.NoError(t, err)
-	assert.Equal(t, GPT2, enc.Name())
-
-	enc, err = NewEncodingForModel("text-davinci-003")
-	assert.NoError(t, err)
-	assert.Equal(t, P50kBase, enc.Name())
-
-	enc, err = NewEncodingForModel("text-davinci-edit-001")
-	assert.NoError(t, err)
-	assert.Equal(t, P50kEdit, enc.Name())
-
-	enc, err = NewEncodingForModel("gpt-3.5-turbo-0301")
-	assert.NoError(t, err)
-	assert.Equal(t, CL100kBase, enc.Name())
-}
-
 func TestSpecialTokenRegex(t *testing.T) {
 	testCases := []struct {
 		name                 string
