@@ -74,6 +74,8 @@ func (enc *Encoding) EncodeOrdinary(text string) ([]uint, []string) {
 	return enc.coreBPE.EncodeOrdinary(text)
 }
 
+var AllSpecial = []string{"all"}
+
 // Encode encodes the given text with the specified allowed and disallowed special tokens.
 func (enc *Encoding) Encode(text string, allowedSpecial, disallowedSpecial []string) ([]uint, []string, error) {
 	var allowedSpecialSet map[string]any

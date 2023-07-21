@@ -21,11 +21,11 @@ const (
 
 // Codec represents a token encoding codec.
 type Codec struct {
-	Name           string
-	ExplicitNVocab int
-	PatStr         string
-	MergeableRanks map[string]uint
-	SpecialTokens  map[string]uint
+	Name           string          `json:"name"`
+	ExplicitNVocab int             `json:"explicit_n_vocab"`
+	PatStr         string          `json:"pat_str"`
+	MergeableRanks map[string]uint `json:"mergeable_ranks"`
+	SpecialTokens  map[string]uint `json:"special_tokens"`
 }
 
 // CovertVocabBPEAndEncoderJSONToMergeableBPERanks converts the vocabulary BPE and encoder JSON

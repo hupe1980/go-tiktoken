@@ -48,6 +48,7 @@ For more example usage, see [_examples](./_examples).
 - ✅ p50k_edit
 - ✅ r50k_base
 - ✅ gpt2 
+- ✅ claude 
 
 ## License
 [MIT](LICENCE)
