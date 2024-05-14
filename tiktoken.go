@@ -20,6 +20,7 @@ const (
 var ModelPrefixToEncoding = map[string]string{
 	// chat
 	"gpt-4-":         CL100kBase, // e.g., gpt-4-0314, etc., plus gpt-4-32k
+	"gpt-4o-":        CL100kBase, // e.g., gpt-4o-2024-05-13, etc.
 	"gpt-3.5-turbo-": CL100kBase, // e.g, gpt-3.5-turbo-0301, -0401, etc.
 	"gpt-35-turbo":   CL100kBase, // Azure deployment name
 }
@@ -28,6 +29,7 @@ var ModelPrefixToEncoding = map[string]string{
 var ModelToEncoding = map[string]string{
 	// chat
 	"gpt-4":         CL100kBase,
+	"gpt-4o":        CL100kBase,
 	"gpt-3.5-turbo": CL100kBase,
 	"gpt-35-turbo":  CL100kBase, // Azure deployment name
 	// text
