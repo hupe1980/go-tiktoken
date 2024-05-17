@@ -63,6 +63,34 @@ func TestCL100kEncoding(t *testing.T) {
 	})
 }
 
+func TestO200kEncoding(t *testing.T) {
+	encoding, err := NewEncodingByName(O200kBase)
+	assert.NoError(t, err)
+
+	t.Run("default", func(t *testing.T) {
+		text := "hello world"
+		ids, _ := encoding.EncodeOrdinary(text)
+		assert.ElementsMatch(t, []uint{24912, 2375}, ids)
+	})
+
+	t.Run("special token", func(t *testing.T) {
+		text := "hello <|endoftext|>"
+		ids, _, err := encoding.Encode(text, []string{"all"}, nil)
+		assert.NoError(t, err)
+		assert.ElementsMatch(t, []uint{24912, 220, 199999}, ids)
+	})
+
+	t.Run("decode", func(t *testing.T) {
+		assert.Equal(t, "hello world", string(encoding.Decode([]uint{24912, 2375})))
+	})
+
+	t.Run("not allowed", func(t *testing.T) {
+		text := "hello <|endoftext|>"
+		_, _, err := encoding.Encode(text, nil, []string{"<|endoftext|>"})
+		assert.Error(t, err)
+	})
+}
+
 func TestSpecialTokenRegex(t *testing.T) {
 	testCases := []struct {
 		name                 string

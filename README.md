@@ -1,11 +1,11 @@
 # ✂️ go-tiktoken
-![Build Status](https://github.com/hupe1980/go-tiktoken/workflows/build/badge.svg) 
-[![Go Reference](https://pkg.go.dev/badge/github.com/hupe1980/go-tiktoken.svg)](https://pkg.go.dev/github.com/hupe1980/go-tiktoken)
+![Build Status](https://github.com/matthiasthomas/go-tiktoken/workflows/build/badge.svg)
+[![Go Reference](https://pkg.go.dev/badge/github.com/matthiasthomas/go-tiktoken.svg)](https://pkg.go.dev/github.com/matthiasthomas/go-tiktoken)
 > OpenAI's [tiktoken](https://github.com/openai/tiktoken) tokenizer written in Go. The vocabularies are embedded and do not need to be downloaded at runtime.
 
 ## Installation
 ```
-go get github.com/hupe1980/go-tiktoken
+go get github.com/matthiasthomas/go-tiktoken
 ```
 
 ## How to use
@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/hupe1980/go-tiktoken"
+	"github.com/matthiasthomas/go-tiktoken"
 )
 
 func main() {
@@ -43,12 +43,13 @@ Tokens: [Hello  World]
 For more example usage, see [_examples](./_examples).
 
 ## Supported Encodings
+- ✅ o200k_base
 - ✅ cl100k_base
 - ✅ p50k_base
 - ✅ p50k_edit
 - ✅ r50k_base
-- ✅ gpt2 
-- ✅ claude 
+- ✅ gpt2
+- ✅ claude
 
 ## License
 [MIT](LICENCE)

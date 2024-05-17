@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/hupe1980/go-tiktoken"
+	"github.com/matthiasthomas/go-tiktoken"
 )
 
 func main() {
