@@ -1,6 +1,6 @@
 # ✂️ go-tiktoken
-![Build Status](https://github.com/matthiasthomas/go-tiktoken/workflows/build/badge.svg)
-[![Go Reference](https://pkg.go.dev/badge/github.com/matthiasthomas/go-tiktoken.svg)](https://pkg.go.dev/github.com/matthiasthomas/go-tiktoken)
+![Build Status](https://github.com/hupe1980/go-tiktoken/workflows/build/badge.svg)
+[![Go Reference](https://pkg.go.dev/badge/github.com/hupe1980/go-tiktoken.svg)](https://pkg.go.dev/github.com/hupe1980/go-tiktoken)
 > OpenAI's [tiktoken](https://github.com/openai/tiktoken) tokenizer written in Go. The vocabularies are embedded and do not need to be downloaded at runtime.
 
 ## Installation
