@@ -1,4 +1,4 @@
-module github.com/matthiasthomas/go-tiktoken
+module github.com/hupe1980/go-tiktoken
 
 go 1.20
 
