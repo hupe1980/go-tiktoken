@@ -5,7 +5,7 @@
 
 ## Installation
 ```
-go get github.com/matthiasthomas/go-tiktoken
+go get github.com/hupe1980/go-tiktoken
 ```
 
 ## How to use
@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/matthiasthomas/go-tiktoken"
+	"github.com/hupe1980/go-tiktoken"
 )
 
 func main() {
