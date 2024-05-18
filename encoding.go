@@ -24,6 +24,8 @@ func NewEncodingByName(encoding string) (*Encoding, error) {
 	)
 
 	switch encoding {
+	case O200kBase:
+		codec, err = NewO200KBase()
 	case CL100kBase:
 		codec, err = NewCL100kBase()
 	case P50kBase:

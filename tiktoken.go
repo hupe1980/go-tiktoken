@@ -9,6 +9,7 @@ import (
 
 // Constants for different encodings.
 const (
+	O200kBase  string = "o200k_base"
 	CL100kBase string = "cl100k_base"
 	P50kBase   string = "p50k_base"
 	P50kEdit   string = "p50k_edit"
@@ -19,6 +20,7 @@ const (
 // ModelPrefixToEncoding maps model prefixes to encodings.
 var ModelPrefixToEncoding = map[string]string{
 	// chat
+	"gpt-4o-":        O200kBase,  // e.g., gpt-4o-2024-05-13
 	"gpt-4-":         CL100kBase, // e.g., gpt-4-0314, etc., plus gpt-4-32k
 	"gpt-3.5-turbo-": CL100kBase, // e.g, gpt-3.5-turbo-0301, -0401, etc.
 	"gpt-35-turbo":   CL100kBase, // Azure deployment name
@@ -27,6 +29,7 @@ var ModelPrefixToEncoding = map[string]string{
 // ModelToEncoding maps models to encodings.
 var ModelToEncoding = map[string]string{
 	// chat
+	"gpt-4o":        O200kBase,
 	"gpt-4":         CL100kBase,
 	"gpt-3.5-turbo": CL100kBase,
 	"gpt-35-turbo":  CL100kBase, // Azure deployment name

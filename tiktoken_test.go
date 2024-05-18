@@ -39,6 +39,12 @@ func TestNewEncodingForModel(t *testing.T) {
 			expectedError:  nil,
 		},
 		{
+			name:           "o200k_base",
+			model:          "gpt-4o-2024-05-13",
+			expectedResult: O200kBase,
+			expectedError:  nil,
+		},
+		{
 			name:           "Model with Prefix",
 			model:          "gpt-4-",
 			expectedResult: CL100kBase,
