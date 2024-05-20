@@ -5,6 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"golang.org/x/text/unicode/norm"
 )
 
 func TestClaude(t *testing.T) {
@@ -25,10 +26,10 @@ func TestClaude(t *testing.T) {
 	})
 
 	t.Run("text normalising", func(t *testing.T) {
-		idx, _ := encoding.EncodeOrdinary("™")
+		idx, _ := encoding.EncodeOrdinary(norm.NFKC.String("™"))
 		assert.Equal(t, 1, len(idx))
 
-		idx, _ = encoding.EncodeOrdinary("ϰ")
+		idx, _ = encoding.EncodeOrdinary(norm.NFKC.String("ϰ"))
 		assert.Equal(t, 1, len(idx))
 	})
 

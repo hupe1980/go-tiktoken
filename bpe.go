@@ -85,6 +85,7 @@ func (bpe *coreBPE) Encode(text string, allowedSpecial map[string]any) ([]uint, 
 	retTokens := []string{}
 
 	textLength := len(text)
+	textRunes := []rune(text)
 
 	start := 0
 
@@ -94,11 +95,11 @@ func (bpe *coreBPE) Encode(text string, allowedSpecial map[string]any) ([]uint, 
 		startFind := start
 
 		for {
-			temp := cutText(text, startFind, textLength)
+			temp := cut(textRunes, startFind, textLength)
 			nextSpecial = findRegex2StringIndex(temp, specialRegex)
 
 			if nextSpecial != nil {
-				token := cutText(text, startFind+nextSpecial[0], startFind+nextSpecial[1])
+				token := cut(textRunes, startFind+nextSpecial[0], startFind+nextSpecial[1])
 				if _, ok := allowedSpecial[token]; ok {
 					break
 				}
@@ -114,8 +115,9 @@ func (bpe *coreBPE) Encode(text string, allowedSpecial map[string]any) ([]uint, 
 			end = start + nextSpecial[0]
 		}
 
-		for _, mat := range findRegex2AllStringMatchIndex(cutText(text, start, end), regex) {
-			piece := cutText(text, start+mat[0], start+mat[1])
+		for _, mat := range findRegex2AllStringMatchIndex(cut(textRunes, start, end), regex) {
+			piece := cut(textRunes, start+mat[0], start+mat[1])
+
 			if id, ok := bpe.encoder[piece]; ok {
 				retIDs = append(retIDs, id)
 				retTokens = append(retTokens, piece)
@@ -129,7 +131,7 @@ func (bpe *coreBPE) Encode(text string, allowedSpecial map[string]any) ([]uint, 
 		}
 
 		if nextSpecial != nil {
-			temp := cutText(text, start+nextSpecial[0], start+nextSpecial[1])
+			temp := cut(textRunes, start+nextSpecial[0], start+nextSpecial[1])
 			id := bpe.specialTokensEncoder[temp]
 			retIDs = append(retIDs, id)
 			retTokens = append(retTokens, temp)
@@ -148,9 +150,10 @@ func (bpe *coreBPE) Encode(text string, allowedSpecial map[string]any) ([]uint, 
 func (bpe *coreBPE) EncodeOrdinary(text string) ([]uint, []string) {
 	retIDs := []uint{}
 	retTokens := []string{}
+	textRunes := []rune(text)
 
 	for _, mat := range findRegex2AllStringMatchIndex(text, bpe.tlRegex) {
-		piece := cutText(text, mat[0], mat[1])
+		piece := cut(textRunes, mat[0], mat[1])
 		if id, ok := bpe.encoder[piece]; ok {
 			retIDs = append(retIDs, id)
 			retTokens = append(retTokens, piece)
@@ -300,14 +303,14 @@ func findRegex2AllStringMatchIndex(text string, reg *regexp2.Regexp) [][]int {
 	return matches
 }
 
-func cutText(text string, start, end int) string {
+func cut(runes []rune, start, end int) string {
 	if start < 0 {
 		start = 0
 	}
 
-	if end > len(text) {
-		end = len(text)
+	if end > len(runes) {
+		end = len(runes)
 	}
 
-	return text[start:end]
+	return string(runes[start:end])
 }
