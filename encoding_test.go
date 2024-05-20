@@ -78,6 +78,13 @@ func TestCL100kEncoding(t *testing.T) {
 		assert.ElementsMatch(t, []uint{15339, 220, 100257}, ids)
 	})
 
+	t.Run("chinese", func(t *testing.T) {
+		text := "你好世界！"
+		ids, _, err := encoding.Encode(text, []string{"all"}, nil)
+		assert.NoError(t, err)
+		assert.ElementsMatch(t, []uint{57668, 53901, 3574, 244, 98220, 6447}, ids)
+	})
+
 	t.Run("decode", func(t *testing.T) {
 		assert.Equal(t, "hello world", string(encoding.Decode([]uint{15339, 1917})))
 	})
