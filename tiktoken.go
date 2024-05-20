@@ -23,7 +23,14 @@ var ModelPrefixToEncoding = map[string]string{
 	"gpt-4o-":        O200kBase,  // e.g., gpt-4o-2024-05-13
 	"gpt-4-":         CL100kBase, // e.g., gpt-4-0314, etc., plus gpt-4-32k
 	"gpt-3.5-turbo-": CL100kBase, // e.g, gpt-3.5-turbo-0301, -0401, etc.
+	"gpt-3.5":        CL100kBase, // Common shorthand
 	"gpt-35-turbo":   CL100kBase, // Azure deployment name
+
+	// fine-tuned
+	"ft:gpt-4":         CL100kBase,
+	"ft:gpt-3.5-turbo": CL100kBase,
+	"ft:davinci-002":   CL100kBase,
+	"ft:babbage-002":   CL100kBase,
 }
 
 // ModelToEncoding maps models to encodings.
@@ -70,7 +77,8 @@ var ModelToEncoding = map[string]string{
 	"code-search-babbage-code-001": R50kBase,
 	"code-search-ada-code-001":     R50kBase,
 	// open source
-	"gpt2": GPT2,
+	"gpt2":  GPT2,
+	"gpt-2": GPT2, // Maintains consistency with gpt-4
 }
 
 // NewEncodingForModel returns a new Encoding based on the given model.
