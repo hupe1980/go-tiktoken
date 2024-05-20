@@ -1,6 +1,8 @@
 package tiktoken
 
 import (
+	"crypto/sha256"
+	"fmt"
 	"testing"
 
 	"github.com/dlclark/regexp2"
@@ -15,6 +17,22 @@ func TestGPT2Encoding(t *testing.T) {
 		text := "hello world"
 		ids, _ := encoding.EncodeOrdinary(text)
 		assert.ElementsMatch(t, []uint{31373, 995}, ids)
+	})
+
+	t.Run("hash vocab", func(t *testing.T) {
+		h := sha256.New()
+		h.Write([]byte(gpt2Vocab))
+		bs := h.Sum(nil)
+
+		assert.Equal(t, "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5", fmt.Sprintf("%x", bs))
+	})
+
+	t.Run("hash encoder", func(t *testing.T) {
+		h := sha256.New()
+		h.Write([]byte(gpt2Encode))
+		bs := h.Sum(nil)
+
+		assert.Equal(t, "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783", fmt.Sprintf("%x", bs))
 	})
 
 	t.Run("special token", func(t *testing.T) {
@@ -45,6 +63,14 @@ func TestCL100kEncoding(t *testing.T) {
 		assert.ElementsMatch(t, []uint{15339, 1917}, ids)
 	})
 
+	t.Run("hash", func(t *testing.T) {
+		h := sha256.New()
+		h.Write([]byte(cl100kBase))
+		bs := h.Sum(nil)
+
+		assert.Equal(t, "223921b76ee99bde995b7ff738513eef100fb51d18c93597a113bcffe865b2a7", fmt.Sprintf("%x", bs))
+	})
+
 	t.Run("special token", func(t *testing.T) {
 		text := "hello <|endoftext|>"
 		ids, _, err := encoding.Encode(text, []string{"all"}, nil)
@@ -71,6 +97,14 @@ func TestO200kEncoding(t *testing.T) {
 		text := "hello world"
 		ids, _ := encoding.EncodeOrdinary(text)
 		assert.ElementsMatch(t, []uint{24912, 2375}, ids)
+	})
+
+	t.Run("hash", func(t *testing.T) {
+		h := sha256.New()
+		h.Write([]byte(o200kBase))
+		bs := h.Sum(nil)
+
+		assert.Equal(t, "446a9538cb6c348e3516120d7c08b09f57c36495e2acfffe59a5bf8b0cfb1a2d", fmt.Sprintf("%x", bs))
 	})
 
 	t.Run("special token", func(t *testing.T) {
