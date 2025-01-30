@@ -19,7 +19,9 @@ const (
 
 // ModelPrefixToEncoding maps model prefixes to encodings.
 var ModelPrefixToEncoding = map[string]string{
+	"o1-": O200kBase,
 	// chat
+	"chatgpt-4o-":    O200kBase,
 	"gpt-4o-":        O200kBase,  // e.g., gpt-4o-2024-05-13
 	"gpt-4-":         CL100kBase, // e.g., gpt-4-0314, etc., plus gpt-4-32k
 	"gpt-3.5-turbo-": CL100kBase, // e.g, gpt-3.5-turbo-0301, -0401, etc.
