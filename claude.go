@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -44,7 +45,17 @@ func NewClaude() (*Codec, error) {
 			return nil, bErr
 		}
 
-		mergeableRanks[string(t)] = uint(i * offset)
+		if offset < 0 {
+			return nil, fmt.Errorf("negative value not allowed: %d", offset)
+		}
+
+		product := i * offset
+
+		if i < 0 || product < 0 || product > (1<<32-1) {
+			return nil, fmt.Errorf("integer overflow in calculation: %d * %d", i, offset)
+		}
+
+		mergeableRanks[string(t)] = uint(product)
 	}
 
 	return &Codec{
