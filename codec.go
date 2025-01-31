@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 	"strings"
@@ -76,6 +77,10 @@ func CovertVocabBPEAndEncoderJSONToMergeableBPERanks(vocabBPE io.Reader, encoder
 	bpeRanks := make(map[string]uint)
 
 	for i, b := range rankToIntByte {
+		if i < 0 {
+			return nil, fmt.Errorf("negative value not allowed: %d", i)
+		}
+
 		key := string(b)
 		bpeRanks[key] = uint(i)
 	}
@@ -96,6 +101,11 @@ func CovertVocabBPEAndEncoderJSONToMergeableBPERanks(vocabBPE io.Reader, encoder
 		first := decodeDataGym(merge[0])
 		second := decodeDataGym(merge[1])
 		key := string(append(first, second...))
+
+		if n < 0 {
+			return nil, fmt.Errorf("negative value not allowed: %d", n)
+		}
+
 		bpeRanks[key] = uint(n)
 		n++
 	}
@@ -120,7 +130,13 @@ func CovertVocabBPEAndEncoderJSONToMergeableBPERanks(vocabBPE io.Reader, encoder
 			result = append(result, dataGymByteToByte[string(r)])
 		}
 
-		encoderLoaded[string(result)] = uint(v.(float64))
+		if val, ok := v.(float64); ok {
+			if val < 0 || val > float64(1<<32-1) {
+				return nil, fmt.Errorf("value out of uint range: %f", val)
+			}
+
+			encoderLoaded[string(result)] = uint(val)
+		}
 	}
 
 	// delete these two special tokens if present, since they're not
@@ -169,6 +185,10 @@ func ConvertToMergeableBPERanks(bpe io.Reader) (map[string]uint, error) {
 		rank, err := strconv.Atoi(parts[1])
 		if err != nil {
 			return nil, err
+		}
+
+		if rank < 0 {
+			return nil, fmt.Errorf("negative value not allowed: %d", rank)
 		}
 
 		bpeRanks[string(token)] = uint(rank)
